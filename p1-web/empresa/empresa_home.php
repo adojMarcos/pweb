@@ -67,15 +67,14 @@ if(isset($insertMsg)){
  </div>
  </div>
      
+ <a href="./vagas.php">Ver vagas criadas</a>
 </form>
+
+
 
 <?php
 
-require_once "../connection.php";
-
-session_start();
-
-
+ require_once '../connection.php';
 
 if(isset($_REQUEST['btn_insert']))
 {

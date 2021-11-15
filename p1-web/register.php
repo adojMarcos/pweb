@@ -78,7 +78,7 @@ if(isset($_REQUEST['btn_register']))
    $select_stmt->execute();
    $row=$select_stmt->fetch(PDO::FETCH_ASSOC); 
 
-  if($row["email"]==$email){
+  if($row["Email"]==$email){
     $errorMsg[]="Email já cadastrado"; 
    }
    
@@ -91,7 +91,19 @@ if(isset($_REQUEST['btn_register']))
     
     if($insert_stmt->execute())
     {
-     $registerMsg="Registrado com sucesso....."; 
+     if($role == "candidato") {
+       $insert=$db->prepare("INSERT INTO candidato(UserId) VALUES(LAST_INSERT_ID())");
+       if($insert->execute()) {
+              $registerMsg="Registrado com sucesso."; 
+       } 
+     } else {
+       $insert=$db->prepare("INSERT INTO empresa(IdUser) VALUES(LAST_INSERT_ID())");
+       if($insert->execute()) {
+              $registerMsg="Registrado com sucesso.";
+       }
+     }
+          
+     
      header("refresh:2;index.php"); 
     }
    }
