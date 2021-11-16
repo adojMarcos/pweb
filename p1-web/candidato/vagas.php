@@ -13,9 +13,6 @@
  <?php
  session_start();
 
- $test = $_SESSION['candidato_id'];
-   echo $test;
-
  require_once '../connection.php';
 
  $select_stmt=$db->prepare("SELECT * FROM vaga");
@@ -26,12 +23,33 @@
         <tr>
             <td><?php echo $row['Id']; ?></td>
             <td><?php echo $row['Descricao']; ?></td>
-            <td><a href="edit.php?update_id=<?php echo $row['Id']; ?>" class="btn btn-primary">Candidatar</a></td>
+            <td><a href="?vaga_id=<?php echo $row['Id']; ?>" class="btn btn-primary">Candidatar</a></td>
         </tr>
     <?php
  }
  ?>
    </tbody>
 </table> 
+
+<?php
+    if(isset($_REQUEST['vaga_id']))
+    { 
+     $id=$_REQUEST['vaga_id']; 
+
+     $select_stmt=$db->prepare('SELECT id FROM candidato WHERE UserId =:usid');
+     $select_stmt->bindParam(':usid', $_SESSION["candidato_id"]);
+     $select_stmt->execute();
+     $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
+
+     $select_stmt=$db->prepare('INSERT INTO candidatura (IdCandidato, IdVaga, DataCriada) VALUES (:vidcan, :vid, :vdata)');
+     $select_stmt->bindParam(':vidcan', $row["id"]);
+     $select_stmt->bindParam(':vid', $id);
+     $select_stmt->bindParam(':vdata', date('d/m/y'));
+     $select_stmt->execute();
+     header("Location:vagas.php");
+
+     $_SESSION["cd_id"]=$row["id"]; 
+    }
+?>
 
 <a href="./candidato_home.php" class="btn btn-danger">Voltar</a>
