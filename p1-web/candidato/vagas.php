@@ -10,45 +10,43 @@
         </tr>
     </thead>
     <tbody>
- <?php
- session_start();
+<?php
+    session_start();
 
- require_once '../connection.php';
+    require_once '../connection.php';
 
- $select_stmt=$db->prepare("SELECT * FROM vaga");
- $select_stmt->execute();
- while($row=$select_stmt->fetch(PDO::FETCH_ASSOC))
- {
- ?>
+    $select_stmt=$db->prepare("SELECT * FROM vaga");
+    $select_stmt->execute();
+    while ($row=$select_stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
         <tr>
             <td><?php echo $row['Id']; ?></td>
             <td><?php echo $row['Descricao']; ?></td>
             <td><a href="?vaga_id=<?php echo $row['Id']; ?>" class="btn btn-primary">Candidatar</a></td>
         </tr>
     <?php
- }
- ?>
-   </tbody>
+    }
+    ?>
+    </tbody>
 </table> 
 
 <?php
-    if(isset($_REQUEST['vaga_id']))
-    { 
-     $id=$_REQUEST['vaga_id']; 
+    if (isset($_REQUEST['vaga_id'])) { 
+        $id=$_REQUEST['vaga_id']; 
 
-     $select_stmt=$db->prepare('SELECT id FROM candidato WHERE UserId =:usid');
-     $select_stmt->bindParam(':usid', $_SESSION["candidato_id"]);
-     $select_stmt->execute();
-     $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
+        $select_stmt=$db->prepare('SELECT id FROM candidato WHERE UserId =:usid');
+        $select_stmt->bindParam(':usid', $_SESSION["candidato_id"]);
+        $select_stmt->execute();
+        $row=$select_stmt->fetch(PDO::FETCH_ASSOC);
 
-     $select_stmt=$db->prepare('INSERT INTO candidatura (IdCandidato, IdVaga, DataCriada) VALUES (:vidcan, :vid, :vdata)');
-     $select_stmt->bindParam(':vidcan', $row["id"]);
-     $select_stmt->bindParam(':vid', $id);
-     $select_stmt->bindParam(':vdata', date('d/m/y'));
-     $select_stmt->execute();
-     header("Location:vagas.php");
+        $select_stmt=$db->prepare('INSERT INTO candidatura (IdCandidato, IdVaga, DataCriada) VALUES (:vidcan, :vid, :vdata)');
+        $select_stmt->bindParam(':vidcan', $row["id"]);
+        $select_stmt->bindParam(':vid', $id);
+        $select_stmt->bindParam(':vdata', date('d/m/y'));
+        $select_stmt->execute();
+        header("Location:vagas.php");
 
-     $_SESSION["cd_id"]=$row["id"]; 
+        $_SESSION["cd_id"]=$row["id"]; 
     }
 ?>
 
