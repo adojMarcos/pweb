@@ -1,7 +1,7 @@
 <?php
     $db_host="localhost"; 
     $db_user="root";
-    $db_password="3@xLMNH#ce97"; 
+    $db_password=""; 
     $db_name="pweb";
 
     try {
