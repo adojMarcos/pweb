@@ -17,10 +17,10 @@
        </div>
        
        <div class="form-group">
-              <label class="col-sm-3 control-label">Entrar como</label>
+              <label class="col-sm-3 control-label">Cadastra como</label>
               <div class="col-sm-6">
                      <select class="form-control" name="txt_role">
-                            <option value="" selected="selected"> - select role - </option>
+                            <option value="" selected="selected">Escolha o que é</option>
                             <option value="candidato">Candidato</option>
                             <option value="empresa">Empresa</option>
                      </select>

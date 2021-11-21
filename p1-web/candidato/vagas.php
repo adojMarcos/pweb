@@ -1,12 +1,16 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+
 <h1 class="text-center">Vagas Disponiveis</h1>
 <table class="table table-striped table-bordered table-hover">
     <thead>
         <tr>
             <th>X</th>
-            <th>Y</th>
-            <th>Z</th>
+            <th>Descrição</th>
+            <th>Salario</th>
+            <th>Expêriencia</th>
+            <th>Tipo</th>
+            <th>Editar</th>
         </tr>
     </thead>
     <tbody>
@@ -20,9 +24,12 @@
     while ($row=$select_stmt->fetch(PDO::FETCH_ASSOC)) {
 ?>
         <tr>
-            <td><?php echo $row['Id']; ?></td>
-            <td><?php echo $row['Descricao']; ?></td>
-            <td><a href="?vaga_id=<?php echo $row['Id']; ?>" class="btn btn-primary">Candidatar</a></td>
+            <td><?php echo $row['Id'];?></td>
+            <td><?php echo $row['Descricao'];?></td>
+            <td><?php echo $row['Salario'];?></td>
+            <td><?php echo $row['Experiencia'];?></td>
+            <td><?php echo $row['Tipo'];?></td>
+            <td><a href="?vaga_id=<?php echo $row['Id'];?>" class="btn btn-primary">Candidatar</a></td>
         </tr>
     <?php
     }
@@ -33,6 +40,7 @@
 <?php
     if (isset($_REQUEST['vaga_id'])) { 
         $id=$_REQUEST['vaga_id']; 
+        $dia=date('d/m/y');
 
         $select_stmt=$db->prepare('SELECT id FROM candidato WHERE UserId =:usid');
         $select_stmt->bindParam(':usid', $_SESSION["candidato_id"]);
@@ -42,7 +50,7 @@
         $select_stmt=$db->prepare('INSERT INTO candidatura (IdCandidato, IdVaga, DataCriada) VALUES (:vidcan, :vid, :vdata)');
         $select_stmt->bindParam(':vidcan', $row["id"]);
         $select_stmt->bindParam(':vid', $id);
-        $select_stmt->bindParam(':vdata', date('d/m/y'));
+        $select_stmt->bindParam(':vdata', $dia);
         $select_stmt->execute();
         header("Location:vagas.php");
 

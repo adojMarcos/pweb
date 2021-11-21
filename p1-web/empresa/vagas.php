@@ -11,6 +11,9 @@
         <tr>
             <th>Id</th>
             <th>Descrição</th>
+            <th>Salario</th>
+            <th>Expêriencia</th>
+            <th>Tipo</th>
             <th>Editar</th>
             <th>Deletar</th>
         </tr>
@@ -29,6 +32,9 @@
         <tr>
             <td><?php echo $row['Id']; ?></td>
             <td><?php echo $row['Descricao']; ?></td>
+            <td><?php echo $row['Salario']; ?></td>
+            <td><?php echo $row['Experiencia']; ?></td>
+            <td><?php echo $row['Tipo']; ?></td>
             <td><a href="edit.php?update_id=<?php echo $row['Id']; ?>" class="btn btn-warning">Editar</a></td>
             <td><a href="?delete_id=<?php echo $row['Id']; ?>" class="btn btn-danger">Deletar</a></td>
         </tr>

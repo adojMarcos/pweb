@@ -15,7 +15,7 @@
             }
 
             if (isset($_SESSION['empresa_login'])) {
-                header("location: ../employee/empresa_home.php"); 
+                header("location: ../empresa/empresa_home.php"); 
             }
             
             if (isset($_SESSION['candidato_login'])) {

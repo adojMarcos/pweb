@@ -30,7 +30,7 @@
        
        <div class="form-group">
               <div class="col-sm-offset-3 col-sm-9 m-t-15">
-              <      input type="submit" name="btn_login" class="btn btn-success" value="Login">
+              <input type="submit" name="btn_login" class="btn btn-success" value="Login">
               </div>
        </div>
        
