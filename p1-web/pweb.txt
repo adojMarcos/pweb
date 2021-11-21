@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS empresa(
     Senha VARCHAR(200),
     Nome VARCHAR(200),
     Endereco VARCHAR(200) 
+    Tamanho VARCHAR(200),
     );
     
 CREATE TABLE IF NOT EXISTS vaga(
