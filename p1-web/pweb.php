@@ -1,0 +1,52 @@
+CREATE DATABASE IF NOT EXISTS pweb;
+
+USE pweb;
+
+CREATE TABLE IF NOT EXISTS candidato(
+    Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Email VARCHAR(200),
+    Senha VARCHAR(200),
+    Nome VARCHAR(200),
+    Sobrenome VARCHAR(200),
+    Telefone VARCHAR(200),
+    Experiencia VARCHAR(200)
+    );
+    
+CREATE TABLE IF NOT EXISTS empresa(
+    Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Email VARCHAR(200),
+    Senha VARCHAR(200),
+    Nome VARCHAR(200),
+    Endereco VARCHAR(200) 
+    Tamanho VARCHAR(200),
+    );
+    
+CREATE TABLE IF NOT EXISTS vaga(
+	Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+        Descricao VARCHAR(200),
+ 	IdEmpresa int DEFAULT NULL,
+	Salario decimal(40),
+	Tipo VARCHAR(200),
+	Experiencia VARCHAR(200),
+  	IdUser int NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS candidatura(
+	Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+    IdAluno INT NOT NULL,
+    IdVaga INT NOT NULL, 
+    FOREIGN KEY (IdAluno) REFERENCES candidato(Id),
+    FOREIGN KEY (IdVaga) REFERENCES vaga(Id),
+    DataCriada DATETIME(6) NOT NULL   
+);
+
+CREATE TABLE IF NOT EXISTS habilidade(
+	Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Nome VARCHAR(200)
+);
+
+CREATE TABLE IF NOT EXISTS vaga_habilidade(
+	Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	IdVaga INT, 
+	IdHabilidade
+);
