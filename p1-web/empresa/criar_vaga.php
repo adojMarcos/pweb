@@ -86,7 +86,6 @@
                                 while ($row=$select->fetch(PDO::FETCH_ASSOC)) {
                                 ?>
                                     <option value=<?php echo $row['Id'] ?>><?php echo $row['Nome'] ?></option>";
-
                                 <?php
                                 }
                                 ?>
