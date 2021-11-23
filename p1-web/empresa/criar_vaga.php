@@ -11,41 +11,37 @@
             $experiencia = $_REQUEST['txt_experiencia']; 
             $tipo = $_REQUEST['txt_remoto']; 
             $habilidades = $_REQUEST['txt_habilidades']; 
-            
-            if(empty($descricao)){
-                $errorMsg="Descreeva a vaga";
-            } else {
-                try {
-                    if (!isset($errorMsg)) {
-                        $insert_stmt=$db->prepare('INSERT INTO vaga(descricao,IdEmpresa, IdUser, Salario, Experiencia, Tipo) VALUES(:vdescricao,:videm, :vid, :vsalario, :vexp, :vtipo)');      
-                        $insert_stmt->bindParam(':vdescricao',$descricao);
-                        $insert_stmt->bindParam(':vsalario',$salario);
-                        $insert_stmt->bindParam(':vexp',$experiencia);
-                        $insert_stmt->bindParam(':vtipo',$tipo);
-                        $insert_stmt->bindParam(':videm',$_SESSION['em_id']);
-                        $insert_stmt->bindParam(':vid', $_SESSION["empresa_id"]);   
+
+            try {
+                if (!isset($errorMsg)) {
+                $insert_stmt=$db->prepare('INSERT INTO vaga(descricao,IdEmpresa, IdUser, Salario, Experiencia, Tipo) VALUES(:vdescricao,:videm, :vid, :vsalario, :vexp, :vtipo)');      
+                $insert_stmt->bindParam(':vdescricao',$descricao);
+                $insert_stmt->bindParam(':vsalario',$salario);
+                $insert_stmt->bindParam(':vexp',$experiencia);
+                $insert_stmt->bindParam(':vtipo',$tipo);
+                $insert_stmt->bindParam(':videm',$_SESSION['em_id']);
+                $insert_stmt->bindParam(':vid', $_SESSION["empresa_id"]);   
                 
-                        if ($insert_stmt->execute()) {
-                            $idVaga = $db->lastInsertId();
-                            foreach ($habilidades as $habilidade) {
-                                $insert_vh=$db->prepare('INSERT INTO vaga_habilidade(IdVaga, IdHabilidade) VALUES (:vhidvaga, :vhidhab)');
-                                $insert_vh->bindParam(':vhidvaga', $idVaga);
-                                $insert_vh->bindParam(':vhidhab', $habilidade);
+                if ($insert_stmt->execute()) {
+                $idVaga = $db->lastInsertId();
+                foreach ($habilidades as $habilidade) {
+                        $insert_vh=$db->prepare('INSERT INTO vaga_habilidade(IdVaga, IdHabilidade) VALUES (:vhidvaga, :vhidhab)');
+                        $insert_vh->bindParam(':vhidvaga', $idVaga);
+                        $insert_vh->bindParam(':vhidhab', $habilidade);
 
-                                if($insert_vh->execute()){
-                                    $insertMsg="Sucesso"; 
-                                    header("refresh:1;empresa_home.php");
-                                }
+                        if($insert_vh->execute()){
+                            $insertMsg="Sucesso"; 
+                            header("refresh:1;empresa_home.php");
                             }
-                             
-                        }
+                        }                             
                     }
-
-
-                } catch(PDOException $e) {
-                    echo $e->getMessage();
                 }
+
+
+            } catch(PDOException $e) {
+                    echo $e->getMessage();
             }
+            
         }
 ?>
 

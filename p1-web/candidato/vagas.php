@@ -10,6 +10,7 @@
             <th>Salario</th>
             <th>Expêriencia</th>
             <th>Tipo</th>
+            <th>Habilidades</th>
             <th>Editar</th>
         </tr>
     </thead>
@@ -21,6 +22,8 @@
 
     $select_stmt=$db->prepare("SELECT * FROM vaga");
     $select_stmt->execute();
+
+    
     while ($row=$select_stmt->fetch(PDO::FETCH_ASSOC)) {
 ?>
         <tr>
@@ -29,6 +32,22 @@
             <td><?php echo $row['Salario'];?></td>
             <td><?php echo $row['Experiencia'];?></td>
             <td><?php echo $row['Tipo'];?></td>
+            <td><?php   $selecth_stmt=$db->prepare("SELECT h.Nome
+                                FROM habilidade as h
+                                INNER JOIN vaga_habilidade as vh
+                                    ON h.Id = vh.IdHabilidade
+                                INNER JOIN vaga as v
+                                    ON vh.IdVaga = v.Id
+                                WHERE v.Id = :vid");
+                        $selecth_stmt->bindParam(":vid", $row['Id']);
+                        $selecth_stmt->execute();
+
+                        while ($rowh=$selecth_stmt->fetch(PDO::FETCH_ASSOC)) {
+                                echo $rowh['Nome'];
+                                echo ", ";
+                        }
+
+            ?></td>
             <td><a href="?vaga_id=<?php echo $row['Id'];?>" class="btn btn-primary">Candidatar</a></td>
         </tr>
     <?php

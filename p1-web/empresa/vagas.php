@@ -14,6 +14,7 @@
             <th>Salario</th>
             <th>Expêriencia</th>
             <th>Tipo</th>
+            <th>Habilidades</th>
             <th>Editar</th>
             <th>Deletar</th>
         </tr>
@@ -35,6 +36,21 @@
             <td><?php echo $row['Salario']; ?></td>
             <td><?php echo $row['Experiencia']; ?></td>
             <td><?php echo $row['Tipo']; ?></td>
+            <td><?php   $selecth_stmt=$db->prepare("SELECT h.Nome
+                                FROM habilidade as h
+                                INNER JOIN vaga_habilidade as vh
+                                    ON h.Id = vh.IdHabilidade
+                                INNER JOIN vaga as v
+                                    ON vh.IdVaga = v.Id
+                                WHERE v.Id = :vid");
+                        $selecth_stmt->bindParam(":vid", $row['Id']);
+                        $selecth_stmt->execute();
+
+                        while ($rowh=$selecth_stmt->fetch(PDO::FETCH_ASSOC)) {
+                                echo $rowh['Nome'];
+                                echo ", ";
+                        }
+            ?></td>
             <td><a href="edit.php?update_id=<?php echo $row['Id']; ?>" class="btn btn-warning">Editar</a></td>
             <td><a href="?delete_id=<?php echo $row['Id']; ?>" class="btn btn-danger">Deletar</a></td>
         </tr>
