@@ -15,6 +15,7 @@
             <th>Expêriencia</th>
             <th>Tipo</th>
             <th>Habilidades</th>
+            <th>Ver Candidatos</th>
             <th>Editar</th>
             <th>Deletar</th>
         </tr>
@@ -51,6 +52,7 @@
                                 echo ", ";
                         }
             ?></td>
+            <td><a href="vaga_candidatos.php?vaga_id=<?php echo $row['Id']; ?>" class="btn btn-info">Ver Candidatos</a></td>
             <td><a href="edit.php?update_id=<?php echo $row['Id']; ?>" class="btn btn-warning">Editar</a></td>
             <td><a href="?delete_id=<?php echo $row['Id']; ?>" class="btn btn-danger">Deletar</a></td>
         </tr>
