@@ -1,1 +1,1 @@
-PHP escrito por alguém que não sabe PHP. 
+Projeto para faculdade
